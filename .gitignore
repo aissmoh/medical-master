@@ -1,5 +1,6 @@
-node_modules/
-logs/
-.env
+webserver/node_modules/
+webserver/logs/
+webserver/.env
 *.bak
 *.broken
+*.log
