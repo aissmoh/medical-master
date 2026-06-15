@@ -532,6 +532,19 @@ function logout() {
 async function showPatientVitals(id) { await loadVitals(); show('patient-vitals', id); }
 
 async function loadPatients() { try { var r = await api('/users?role=patient'); if (r.success) state.patients = r.data || []; } catch(e) { console.error('loadPatients:', e); } }
+async function deleteEmergency(id) {
+  if (!confirm("Supprimer cette alerte d'urgence ?")) return;
+  try {
+    var r = await api("/emergency/" + id, { method: "DELETE" });
+    if (r.success) {
+      await loadEmergencies();
+      show("emergencies");
+    } else {
+      alert(r.message || "Erreur de suppression");
+    }
+  } catch(e) { console.error("deleteEmergency:", e); }
+}
+
 async function loadNurses() { try { var r = await api('/users?role=nurse'); if (r.success) state.nurses = r.data || []; } catch(e) { console.error('loadNurses:', e); } }
 async function loadVitals() {
   try {
